@@ -257,7 +257,7 @@ manipulation of the collection without direct knowledge of Firebase key values.
 
         if (!this.query) {
           this._fireQueryError('Query does not exist');
-          return; 
+          return;
         }
 
         query = this.query.ref().push();
@@ -336,13 +336,13 @@ manipulation of the collection without direct knowledge of Firebase key values.
 
         if (!this.query) {
           this._fireQueryError('Query does not exist');
-          return; 
+          return;
         }
 
         var key = change.path.split('.')[1];
         var value = Polymer.Collection.get(change.base).getItem(key);
+        value[change.path.split('.')[2]]=change.value;//update with change
         var firebaseKey = value.__firebaseKey__;
-
         // We don't want to accidentally reflect `__firebaseKey__` in the
         // remote data, so we remove it temporarily. `null` values will be
         // discarded by Firebase, so `delete` is not necessary:
@@ -399,7 +399,7 @@ manipulation of the collection without direct knowledge of Firebase key values.
 
         try {
           query = new Firebase(location);
-          
+
           if (orderByMethodName) {
             if (orderByMethodName === 'orderByChild') {
               query = query[orderByMethodName](this.orderByChild);
@@ -429,13 +429,13 @@ manipulation of the collection without direct knowledge of Firebase key values.
           }
 
         } catch(e) {
-          
+
           this._fireQueryError('Query cannot be instantiated with location ' + location + ' (' + e.toString() + ')');
-        
+
         } finally {
-        
+
           return query;
-        
+
         }
 
       },
